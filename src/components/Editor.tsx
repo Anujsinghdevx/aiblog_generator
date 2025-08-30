@@ -16,13 +16,15 @@ export default function Editor() {
     try {
       const r = await fetch("/api/ai/generate", {
         method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify({ topic, tone, target_words: 900, include_outline: true })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic, tone, target_words: 900, include_outline: true }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data?.detail || "Error");
       setMd(data.markdown);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function aiSuggest() {
@@ -30,51 +32,72 @@ export default function Editor() {
     try {
       const r = await fetch("/api/ai/suggest", {
         method: "POST",
-        headers: { "Content-Type":"application/json" },
-        body: JSON.stringify({ partial_markdown: md, goal: "continue the next section with examples" })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ partial_markdown: md, goal: "continue the next section with examples" }),
       });
       const data = await r.json();
       if (!r.ok) throw new Error(data?.detail || "Error");
       setMd((m) => m + "\n\n" + data.markdown);
-    } finally { setLoading(false); }
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-4">
+    <div className="max-w-5xl mx-auto p-6 space-y-6">
+      {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-semibold">AI Blog Editor</h1>
+        <h1 className="text-3xl font-semibold text-gray-900">AI Blog Editor</h1>
         <div className="text-sm opacity-70">~{readingTime(md)} min read</div>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-3">
-        <input className="border p-2 rounded" placeholder="Topic"
-               value={topic} onChange={e=>setTopic(e.target.value)} />
-        <select className="border p-2 rounded" value={tone} onChange={e=>setTone(e.target.value)}>
-          <option>informative</option><option>conversational</option>
-          <option>technical</option><option>persuasive</option>
+      {/* Controls for Topic, Tone, and Buttons */}
+      <div className="grid md:grid-cols-3 gap-4 mb-6">
+        {/* Topic Input */}
+        <input
+          className="border p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          placeholder="Enter Topic"
+          value={topic}
+          onChange={(e) => setTopic(e.target.value)}
+        />
+        {/* Tone Selector */}
+        <select
+          className="border p-3 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          value={tone}
+          onChange={(e) => setTone(e.target.value)}
+        >
+          <option>informative</option>
+          <option>conversational</option>
+          <option>technical</option>
+          <option>persuasive</option>
         </select>
-        <div className="flex gap-2">
-          <button onClick={aiGenerate} disabled={loading || !topic}
-                  className="px-3 py-2 rounded bg-black text-white disabled:opacity-50">
-            {loading ? "Working..." : "AI Generate Draft"}
+        {/* Action Buttons */}
+        <div className="flex gap-3 justify-between">
+          <button
+            onClick={aiGenerate}
+            disabled={loading || !topic}
+            className="px-6 py-3 rounded-full bg-black text-white font-semibold disabled:opacity-50 hover:bg-indigo-800 transition-all"
+          >
+            {loading ? "Working..." : "Generate AI Draft"}
           </button>
-          <button onClick={aiSuggest} disabled={loading}
-                  className="px-3 py-2 rounded border">
-            AI Suggest Next
+          <button
+            onClick={aiSuggest}
+            disabled={loading}
+            className="px-6 py-3 rounded-full border-2 border-indigo-500 text-indigo-600 font-semibold hover:bg-indigo-100 disabled:opacity-50 transition-all"
+          >
+            Suggest Next Section
           </button>
         </div>
       </div>
 
+      {/* Markdown Editor */}
       <div data-color-mode="light">
-        <MDEditor value={md} onChange={(v)=>setMd(v ?? "")} height={520} />
+        <MDEditor value={md} onChange={(v) => setMd(v ?? "")} height={520} />
       </div>
 
-      {/* Side panel */}
+      {/* SEO Panel (For simplicity, included below the editor) */}
       <div className="mt-6">
-        {/* Client fetches SEO for current markdown */}
-        {/** we keep simple: mount SEOInspector below editor */}
         <div>
-          {/* Inline import to avoid circular imports */}
           {require("./SEOInline").default({ markdown: md })}
         </div>
       </div>
