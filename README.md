@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📝 AI Blog Generator – Frontend
 
-## Getting Started
+![Next.js](https://img.shields.io/badge/Next.js-15.5.2-blue.svg)
+![React](https://img.shields.io/badge/React-19.1.0-blue.svg)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4.0-38B2AC.svg)
+![Clerk](https://img.shields.io/badge/Auth-Clerk-orange.svg)
 
-First, run the development server:
+This is the **frontend** of the AI Blog Generator project.  
+It provides a modern web interface where users can generate, edit, and manage AI-powered blog posts.  
 
+Built with **Next.js 15 (Turbopack)**, **React 19**, **TailwindCSS 4**, and **Clerk** authentication.
+
+---
+
+## 🚀 Features
+- 🔐 Secure login & signup with **Clerk**
+- 📝 Rich **Markdown editor** with live preview
+- 🎨 Styled with **TailwindCSS 4**
+- ⚡ Smooth UI animations using **Framer Motion**
+- 📄 Blog drafting, editing, and publishing
+- 🖼️ Modern icons with **Lucide React**
+
+---
+
+## 📦 Tech Stack
+- **Next.js 15.5.2**
+- **React 19.1.0**
+- **TailwindCSS 4**
+- **Clerk Auth**
+- **Framer Motion**
+- **Lucide React**
+- **Markdown Editor** (`@uiw/react-md-editor` + `@uiw/react-markdown-preview`)
+
+---
+
+## 🔧 Setup Instructions
+
+### 1. Clone Repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/your-username/ai-blog-frontend.git
+cd ai-blog-frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Install Dependencies
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 3. Run Dev Server
+```bash
+npm run dev
+```
+App runs at: [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## ⚙️ Environment Variables
+Create a `.env.local` file in the root with:
 
-To learn more about Next.js, take a look at the following resources:
+```env
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key
+CLERK_SECRET_KEY=your_clerk_secret_key
+AI_API_URL=http://localhost:8000
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📜 Scripts
+- `npm run dev` → Start development server (Turbopack)  
+- `npm run build` → Build production app  
+- `npm run start` → Run production server  
+- `npm run lint` → Run ESLint checks  
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📸 Screenshots 
+<img width="1899" height="868" alt="image" src="https://github.com/user-attachments/assets/4989b519-1d49-4886-b1ce-bf9462fc2839" />
+<img width="1900" height="866" alt="image" src="https://github.com/user-attachments/assets/9b534884-9054-4d0a-a421-d62777871fd3" />
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
